@@ -21,16 +21,20 @@ class play extends Phaser.Scene {
         this.testPlatform.setImmovable();
         this.physics.add.collider(this.runner, this.testPlatform);
 
-       // keyf = this.input.keyboard.addKey(Phaser.Input.Keyboard.Keycodes.F);
- 
+       //keyf = this.input.keyboard.addKey(Phaser.Input.Keyboard.Keycodes.F);
+       this.input.on('pointerdown', this.jump, this);
     }
     update() {
         //this.platform.tilePositionX += 2;
 
-        if(keyF.isDown) {
-            this.runner.body.velocity.y = -100;
-        }
+        //if(keyF.isDown) {
+        //   this.runner.body.velocity.y = -100;
+       // }
         
+    }
+    jump() {
+        this.runner.setVelocity(-100);
+            //negative goes up
     }
 
 }
