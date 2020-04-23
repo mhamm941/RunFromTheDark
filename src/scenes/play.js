@@ -10,19 +10,25 @@ class play extends Phaser.Scene {
     create() {
 
         //this.platform = this.add.tileSprite(0, 0, 640, 480, 'platform').setOrigin(0, 0);
-        this.testPlatform = this.physics.add.sprite(game.config.width/2, game.config.height/2 + 150, 'test_platform').setScale(0.5);
+        this.testPlatform = this.physics.add.sprite(game.config.width/2, game.config.height/2 + 150, 'test_platform');
 
-        this.runner = this.physics.add.sprite(game.config.width/2, game.config.height/2, 'sprite').setScale(0.5);
+        this.runner = this.physics.add.sprite(game.config.width/2, game.config.height/2, 'sprite');
 
         //adding gravity
         this.runner.setGravityY(100);
+        //this.runner.setGravityX(50);
 
         //interaction between the runner and the ground, collision
         this.testPlatform.setImmovable();
         this.physics.add.collider(this.runner, this.testPlatform);
 
        //keyf = this.input.keyboard.addKey(Phaser.Input.Keyboard.Keycodes.F);
-       this.input.on('pointerdown', this.jump, this);
+       //this.input.on('pointerdown', this.jump, this);
+
+       this.input.keyboard.on('keydown', () => {
+       this.runner.setVelocity(-100);
+    }, this);
+
     }
     update() {
         //this.platform.tilePositionX += 2;
@@ -32,9 +38,9 @@ class play extends Phaser.Scene {
        // }
         
     }
-    jump() {
+    /*jump() {
         this.runner.setVelocity(-100);
             //negative goes up
-    }
+    }*/
 
 }
