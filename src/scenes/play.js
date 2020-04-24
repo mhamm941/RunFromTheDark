@@ -37,8 +37,8 @@ class play extends Phaser.Scene {
        //keyf = this.input.keyboard.addKey(Phaser.Input.Keyboard.Keycodes.F);
        //this.input.on('pointerdown', this.jump, this);
 
-       this.input.keyboard.on('keydown', () => {
-       this.runner.setVelocity(-100);
+        this.input.keyboard.on('keydown', () => {
+        this.runner.setVelocity(-100);
     }, this);
 
     }
