@@ -8,7 +8,7 @@ class menu extends Phaser.Scene {
         let centerX = game.config.width/2;
         let centerY = game.config.height/2;
 
-        this.add.text(0, 0, "Press any key to continue").setOrigin(0.5);
+        this.add.text(game.config.width/2, game.config.width/2, "Press any key to continue").setOrigin(0.5);
 
         this.input.keyboard.on('keydown', () => {
             this.scene.start("playScene");
