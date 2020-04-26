@@ -5,7 +5,7 @@ class play extends Phaser.Scene {
     preload() {
         this.load.image('platform', './assets/platform.png');
         this.load.image('sprite', './assets/sprite.png');
-        //this.load.image('test_platform', './assets/test_platform.png');
+        this.load.image('test_platform', './assets/test_platform.png');
     }
     create() {
 
@@ -28,7 +28,6 @@ class play extends Phaser.Scene {
 
         //adding gravity
         this.runner.setGravityY(100);
-        //this.runner.setGravityX(50);
 
         //interaction between the runner and the ground, collision
         //this.platform.setImmovable();
@@ -38,11 +37,12 @@ class play extends Phaser.Scene {
        //this.input.on('pointerdown', this.jump, this);
 
         this.input.keyboard.on('keydown', () => {
-        this.runner.setVelocity(-100);
+        this.runner.setVelocity(0, -100);
     }, this);
 
     }
     update() {
+
         this.platformScroll.tilePositionX += 2;
         
         //if(keyF.isDown) {
