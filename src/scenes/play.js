@@ -31,9 +31,9 @@ class play extends Phaser.Scene {
             this.platform.add(groundTile);
         }
         // put another tile sprite above the ground tiles
-        this.testScroll = this.add.tileSprite(0, 0, 740, 32, 'test_scroll').setOrigin(0, 0);
-
         this.testBackground = this.add.tileSprite(0, 0, 740, 480, 'test_background').setOrigin(0, 0);
+
+        this.testScroll = this.add.tileSprite(0, 448, 740, 32, 'test_scroll').setOrigin(0, 0);
 
         this.runner = runner.create(game.config.width/8, game.config.height - 100, 'sprite');
 
