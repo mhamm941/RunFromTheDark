@@ -5,12 +5,11 @@ class play extends Phaser.Scene {
     preload() {
         this.load.image('platform', './assets/platform.png');
         this.load.image('sprite', './assets/sprite.png');
-        this.load.image('test_platform', './assets/test_platform.png');
+        this.load.image('test_scroll', './assets/test_scroll.png');
+        this.load.image('test_background', './assets/test_background.png');
+
     }
     create() {
-
-    //this.platform = this.add.tileSprite(0, 0, game.config.width, game.config.height/2 + 150, 'platform').setOrigin(0);
-  //this.testPlatform = this.physics.add.sprite(game.config.width/2, game.config.height/2 + 150, 'test_platform');
 
     let runner = this.physics.add.group({
         // Initial angular speed of 60 degrees per second.
@@ -32,10 +31,11 @@ class play extends Phaser.Scene {
             this.platform.add(groundTile);
         }
         // put another tile sprite above the ground tiles
-        this.platformScroll = this.add.tileSprite(0, game.config.height-32, game.config.width, 32, 'platform').setOrigin(0);
+        this.testScroll = this.add.tileSprite(0, 0, 740, 32, 'test_scroll').setOrigin(0, 0);
 
+        this.testBackground = this.add.tileSprite(0, 0, 740, 480, 'test_background').setOrigin(0, 0);
 
-        this.runner = runner.create(game.config.width/8, game.config.height/2, 'sprite');
+        this.runner = runner.create(game.config.width/8, game.config.height - 100, 'sprite');
 
         //adding gravity
         this.runner.setGravityY(200);
@@ -54,7 +54,8 @@ class play extends Phaser.Scene {
     }
     update() {
 
-        this.platformScroll.tilePositionX += 2;
+        this.testScroll.tilePositionX += 2;
+        this.testBackground.tilePositionX += 2;
         
         //if(keyF.isDown) {
         //   this.runner.body.velocity.y = -100;
