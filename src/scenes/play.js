@@ -38,10 +38,9 @@ class play extends Phaser.Scene {
         this.runner = runner.create(game.config.width/8, game.config.height - 100, 'sprite');
 
         //adding gravity
-        this.runner.setGravityY(200);
+        this.runner.setGravityY(300);
 
         //interaction between the runner and the ground, collision
-        //this.testPlatform.setImmovable();
         this.physics.add.collider(this.runner, this.platform);
 
        //keyf = this.input.keyboard.addKey(Phaser.Input.Keyboard.Keycodes.F);
@@ -54,8 +53,8 @@ class play extends Phaser.Scene {
     }
     update() {
 
-        this.testScroll.tilePositionX += 2;
-        this.testBackground.tilePositionX += 2;
+        this.testScroll.tilePositionX += 3;
+        this.testBackground.tilePositionX += 3;
         
         //if(keyF.isDown) {
         //   this.runner.body.velocity.y = -100;
