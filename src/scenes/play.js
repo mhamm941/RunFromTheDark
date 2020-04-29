@@ -14,7 +14,7 @@ class play extends Phaser.Scene {
     let runner = this.physics.add.group({
         // Initial angular speed of 60 degrees per second.
         // Drag reduces it by 5 degrees/s per second, thus to zero after 12 seconds.
-        angularDrag: 5,
+        angularDrag: 0,
         angularVelocity:0,
        // bounceX: 1,
         //bounceY: 1,
@@ -55,15 +55,13 @@ class play extends Phaser.Scene {
 
         this.testScroll.tilePositionX += 3;
         this.testBackground.tilePositionX += 3;
-        
-        //if(keyF.isDown) {
-        //   this.runner.body.velocity.y = -100;
-       // }
+
+        this.addObstacles();
         
     }
-    /*jump() {
-        this.runner.setVelocity(-100);
-            //negative goes up
-    }*/
 
+    addObstacles() {
+        let obstacles = new obstacles(this, 3);     // create new barrier
+        this.obstaclesGroup.add(obstacles);                         // add it to existing group
+    }
 }
