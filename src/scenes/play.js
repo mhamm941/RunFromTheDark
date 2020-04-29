@@ -7,6 +7,7 @@ class play extends Phaser.Scene {
         this.load.image('sprite', './assets/sprite.png');
         this.load.image('test_scroll', './assets/test_scroll.png');
         this.load.image('test_background', './assets/test_background.png');
+        this.load.image('obstacle', './assets/obstacle.png');
 
     }
     create() {
@@ -22,7 +23,7 @@ class play extends Phaser.Scene {
         dragX: 50,
         dragY: 50
     });
-        //from nathan's movment studies
+        //from nathan's movement studies
         this.platform = this.add.group();
         for(let i = 0; i < game.config.width; i += 32) {
             let groundTile = this.physics.add.sprite(i, game.config.height - 32, 'platform').setScale(0.5).setOrigin(0);
@@ -50,18 +51,21 @@ class play extends Phaser.Scene {
         this.runner.setVelocity(0, -200);
     }, this);
 
-    }
-    update() {
+        this.obstacleGroup = this.add.group({
+            runChildUpdate: true
+        });
+        this.addObstacles();
 
+    }
+
+    update() {
         this.testScroll.tilePositionX += 3;
         this.testBackground.tilePositionX += 3;
-
-        this.addObstacles();
         
     }
 
     addObstacles() {
-        let obstacles = new obstacles(this, 3);     // create new barrier
-        this.obstaclesGroup.add(obstacles);                         // add it to existing group
+        let obstacle = new obstacles(this, -450);     // create new barrier
+        this.obstacleGroup.add(obstacles);            // add it to existing group
     }
 }
