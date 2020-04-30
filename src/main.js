@@ -1,4 +1,5 @@
 let config = {
+   // parent: 'myGame',
     type: Phaser.WEBGL,
     width: 740,
     height: 480,

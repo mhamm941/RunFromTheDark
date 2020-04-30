@@ -12,6 +12,8 @@ class play extends Phaser.Scene {
     }
     create() {
 
+        this.obstacleSpeed = -450;
+
     let runner = this.physics.add.group({
         // Initial angular speed of 60 degrees per second.
         // Drag reduces it by 5 degrees/s per second, thus to zero after 12 seconds.
@@ -69,7 +71,7 @@ class play extends Phaser.Scene {
     //use overlap instead of collide!!!! for the relationship between in the player and obstacle
 
     addObstacles() {
-        let obstacle = new obstacles(this, -450);     // create new barrier //obstacle speed --> make global vaiable --> in main
-        this.obstacleGroup.add(obstacles);            // add it to existing group
+        let obstacleObject = new obstacle(this, this.obstacleSpeed);     // create new barrier //obstacle speed --> make global vaiable --> in main
+        this.obstacleGroup.add(obstacleObject);            // add it to existing group
     }
 }
