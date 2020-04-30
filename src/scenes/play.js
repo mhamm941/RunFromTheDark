@@ -64,8 +64,12 @@ class play extends Phaser.Scene {
         
     }
 
+    /////////line 43 in play.js of paddle parkour
+    ///////line 77 function level bump
+    //use overlap instead of collide!!!! for the relationship between in the player and obstacle
+
     addObstacles() {
-        let obstacle = new obstacles(this, -450);     // create new barrier
+        let obstacle = new obstacles(this, -450);     // create new barrier //obstacle speed --> make global vaiable --> in main
         this.obstacleGroup.add(obstacles);            // add it to existing group
     }
 }
