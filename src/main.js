@@ -13,7 +13,7 @@ let config = {
             }
         }
     },
-    scene: [menu, opening, play]
+    scene: [menu, opening, play, gameOver]
 };
 
 let scoreConfig = {
@@ -31,5 +31,5 @@ let scoreConfig = {
 
 let game = new Phaser.Game(config);
 
-let keySPACE;
+let keyRIGHT, keyleft;
 

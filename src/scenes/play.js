@@ -13,7 +13,6 @@ class play extends Phaser.Scene {
     create() {
 
         this.obstacleSpeed = -200;
-        //this.objectFlag = false;
 
     let runner = this.physics.add.group({
         // Initial angular speed of 60 degrees per second.
@@ -64,11 +63,16 @@ class play extends Phaser.Scene {
 
         this.physics.add.overlap(runner, this.obstacleGroup, this.check, null, this);
 
+
     }
 
     update() {
         this.testScroll.tilePositionX += 3;
         this.testBackground.tilePositionX += 3;
+
+        if(this.p1Score == -3){
+            this.scene.start('gameOverScene');
+        }
 
     /////////line 43 in play.js of paddle parkour
     ///////line 77 function level bump
@@ -83,7 +87,7 @@ class play extends Phaser.Scene {
 
         obstacleGroup.destroy();
 
-        this.p1Score += 1;
+        this.p1Score -= 1;
         this.scoreLeft.text = this.p1Score;
     }
 
