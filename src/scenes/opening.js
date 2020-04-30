@@ -4,7 +4,7 @@ class opening extends Phaser.Scene {
     }
 
     preload() {
-        this.load.image('opening2', './assests/openingScene2.png');
+        this.load.image('opening2', './assets/openingScene2.png');
     }
 
     create() {

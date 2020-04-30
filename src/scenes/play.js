@@ -52,9 +52,9 @@ class play extends Phaser.Scene {
        //keyf = this.input.keyboard.addKey(Phaser.Input.Keyboard.Keycodes.F);
        //this.input.on('pointerdown', this.jump, this);
 
-        this.input.keyboard.on('keydown', () => {
+      /*  this.input.keyboard.on('keydown', () => {
         this.runner.setVelocity(0, -200);
-    }, this);
+        }, this);*/
 
         this.obstacleGroup = this.add.group({
             runChildUpdate: true
@@ -63,6 +63,10 @@ class play extends Phaser.Scene {
 
         this.physics.add.overlap(runner, this.obstacleGroup, this.check, null, this);
 
+        this.spacebar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+
+        this.gameEnd = false;
+
 
     }
 
@@ -70,7 +74,12 @@ class play extends Phaser.Scene {
         this.testScroll.tilePositionX += 3;
         this.testBackground.tilePositionX += 3;
 
+        if (Phaser.Input.Keyboard.JustDown(this.spacebar)) {
+            this.runner.setVelocity(0, -200);
+        }
+
         if(this.p1Score == -3){
+            this.gameEnd = true;
             this.scene.start('gameOverScene');
         }
 
