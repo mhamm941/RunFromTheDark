@@ -12,7 +12,8 @@ class play extends Phaser.Scene {
     }
     create() {
 
-        this.obstacleSpeed = -450;
+        this.obstacleSpeed = -200;
+        //this.objectFlag = false;
 
     let runner = this.physics.add.group({
         // Initial angular speed of 60 degrees per second.
@@ -46,6 +47,9 @@ class play extends Phaser.Scene {
         //interaction between the runner and the ground, collision
         this.physics.add.collider(this.runner, this.platform);
 
+                this.p1Score = 0;
+                this.scoreLeft = this.add.text(69, 54, this.p1Score, scoreConfig);
+
        //keyf = this.input.keyboard.addKey(Phaser.Input.Keyboard.Keycodes.F);
        //this.input.on('pointerdown', this.jump, this);
 
@@ -58,20 +62,29 @@ class play extends Phaser.Scene {
         });
         this.addObstacles();
 
+        this.physics.add.overlap(runner, this.obstacleGroup, this.check, null, this);
+
     }
 
     update() {
         this.testScroll.tilePositionX += 3;
         this.testBackground.tilePositionX += 3;
-        
-    }
 
     /////////line 43 in play.js of paddle parkour
     ///////line 77 function level bump
-    //use overlap instead of collide!!!! for the relationship between in the player and obstacle
-
+    }
     addObstacles() {
         let obstacleObject = new obstacle(this, this.obstacleSpeed);     // create new barrier //obstacle speed --> make global vaiable --> in main
         this.obstacleGroup.add(obstacleObject);            // add it to existing group
     }
+
+    check(obstacleGroup) {
+        console.log('hit');
+
+        obstacleGroup.destroy();
+
+        this.p1Score += 1;
+        this.scoreLeft.text = this.p1Score;
+    }
+
 }
