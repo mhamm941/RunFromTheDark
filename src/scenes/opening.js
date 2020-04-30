@@ -4,11 +4,12 @@ class opening extends Phaser.Scene {
     }
 
     preload() {
-        this.load.image('opening1', './assests/openingScene1.png');
         this.load.image('opening2', './assests/openingScene2.png');
     }
 
     create() {
+
+        this.opening2 = this.add.tileSprite(0, 0, 740, 480, 'opening2').setOrigin(0,0);
 
         let centerX = game.config.width/2;
         let centerY = game.config.height/2;
