@@ -14,7 +14,8 @@ class opening extends Phaser.Scene {
         let centerX = game.config.width/2;
         let centerY = game.config.height/2;
 
-        this.add.text(game.config.width/2, game.config.width/2, "Press any key to continue").setOrigin(0.5);
+        this.add.text(game.config.width/2, game.config.height/2, "Press SPACEBAR to jump").setOrigin(0.5);
+        this.add.text(game.config.width/2, game.config.height/2 + 64, "Press any key to continue").setOrigin(0.5);
 
         this.input.keyboard.on('keydown', () => {
             this.scene.start("playScene");

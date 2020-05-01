@@ -14,7 +14,7 @@ class menu extends Phaser.Scene {
         let centerX = game.config.width/2;
         let centerY = game.config.height/2;
 
-        this.add.text(game.config.width/2, game.config.width/2, "Run From the Dark").setOrigin(0.5);
+        this.add.text(game.config.width/2, game.config.height/2, "Run From the Dark").setOrigin(0.5);
 
         this.input.keyboard.on('keydown', () => {
             this.scene.start("openingScene");

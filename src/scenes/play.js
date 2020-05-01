@@ -12,19 +12,30 @@ class play extends Phaser.Scene {
     }
     create() {
 
-        this.obstacleSpeed = -200;
+        this.gameEnd = false;
+        this.obstacleSpeed = -300;
+        this.maxSpeed = -800;
+        this.spacebar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
 
-    let runner = this.physics.add.group({
+                //from nathan's paddle parkour
+        this.difficultyTimer = this.time.addEvent({
+            delay: 1000,
+            callback: this.levelBump,
+            callbackScope: this,
+            loop: true
+        });
+
+        let runner = this.physics.add.group({
         // Initial angular speed of 60 degrees per second.
         // Drag reduces it by 5 degrees/s per second, thus to zero after 12 seconds.
-        angularDrag: 0,
-        angularVelocity:0,
+            angularDrag: 0,
+            angularVelocity:0,
        // bounceX: 1,
         //bounceY: 1,
-        collideWorldBounds: true,
-        dragX: 50,
-        dragY: 50
-    });
+            collideWorldBounds: true,
+            dragX: 50,
+            dragY: 50
+        });
         //from nathan's movement studies
         this.platform = this.add.group();
         for(let i = 0; i < game.config.width; i += 32) {
@@ -46,26 +57,18 @@ class play extends Phaser.Scene {
         //interaction between the runner and the ground, collision
         this.physics.add.collider(this.runner, this.platform);
 
-                this.p1Score = 0;
-                this.scoreLeft = this.add.text(69, 54, this.p1Score, scoreConfig);
-
-       //keyf = this.input.keyboard.addKey(Phaser.Input.Keyboard.Keycodes.F);
-       //this.input.on('pointerdown', this.jump, this);
-
-      /*  this.input.keyboard.on('keydown', () => {
-        this.runner.setVelocity(0, -200);
-        }, this);*/
+        p1Score = 0;
+        this.scoreLeft = this.add.text(69, 54, this.p1Score, scoreConfig);
 
         this.obstacleGroup = this.add.group({
             runChildUpdate: true
         });
         this.addObstacles();
 
+
         this.physics.add.overlap(runner, this.obstacleGroup, this.check, null, this);
 
-        this.spacebar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
-
-        this.gameEnd = false;
+ 
 
 
     }
@@ -78,10 +81,17 @@ class play extends Phaser.Scene {
             this.runner.setVelocity(0, -200);
         }
 
-        if(this.p1Score == -3){
+        /*if(this.obstacleGroup.tilePositionX < 200){
+            console.log('passed off screen');
+            this.p1Score += 1;
+            this.scoreLeft.text = p1Score;
+        }*/
+
+        if(p1Score == -3){
             this.gameEnd = true;
             this.scene.start('gameOverScene');
         }
+
 
     /////////line 43 in play.js of paddle parkour
     ///////line 77 function level bump
@@ -96,8 +106,22 @@ class play extends Phaser.Scene {
 
         obstacleGroup.destroy();
 
-        this.p1Score -= 1;
-        this.scoreLeft.text = this.p1Score;
+        p1Score -= 1;
+        this.scoreLeft.text = p1Score;
+    }
+
+    levelBump() {
+        // increment level (aka score)
+        level++;
+
+        // bump speed every 5 levels
+        if(level % 5 == 0) {
+            console.log(`level: ${level}, speed: ${this.obstacleSpeed}`); 
+            if(this.obstacleSpeed >= this.maxSpeed) {     // increase barrier speed
+                this.obstacleSpeed += 50;
+                //this.bgm.rate += 0.01;                          // increase bgm playback rate (ドキドキ)
+            }
+        }
     }
 
 }

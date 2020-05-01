@@ -8,8 +8,8 @@ class gameOver extends Phaser.Scene {
         //this.add.text(game.config.width/2, game.config.height/2, 'GAME OVER', scoreConfig).setOrigin(0.5);
         //this.add.text(game.config.width/2, game.config.height/2 + 64, '-> to restart or <- for Menu', scoreConfig).setOrigin(0.5);
 
-        this.add.text(game.config.width/2, game.config.width/2, "GAME OVER").setOrigin(0.5);
-        this.add.text(game.config.width/2, game.config.width/2 + 64, "SPACE to restart or <- for Menu").setOrigin(0.5);
+        this.add.text(game.config.width/2, game.config.height/2, "GAME OVER").setOrigin(0.5);
+        this.add.text(game.config.width/2, game.config.height/2 + 64, "SPACE to restart or <- for Menu").setOrigin(0.5);
 
     }
 
