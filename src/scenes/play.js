@@ -51,6 +51,7 @@ class play extends Phaser.Scene {
         //interaction between the runner and the ground, collision
         this.physics.add.collider(this.runner, this.platform);
 
+        //display score for debugging
         p1Score = 0;
         scoreLeft = this.add.text(69, 54, this.p1Score, scoreConfig);
 
@@ -59,10 +60,10 @@ class play extends Phaser.Scene {
         });
         this.addObstacles();
 
-
+        //overlap with between the player and obstacle
         this.physics.add.overlap(runner, this.obstacleGroup, this.check, null, this);
 
-        //from nathan's paddle parkour
+        //from nathan's paddle parkour --> for the level bumping
         let difficultyTimer = this.time.addEvent({
             delay: 1000,
             callback: this.levelBump,
@@ -78,21 +79,26 @@ class play extends Phaser.Scene {
         this.testScroll.tilePositionX += 3;
         this.testBackground.tilePositionX += 3;
 
+        //for 'is the player on the ground'
         this.runner.isGrounded = this.runner.body.touching.down;
 
+        //jumping constriction, no double jumps
         if(this.runner.isGrounded) {
             if (Phaser.Input.Keyboard.JustDown(this.spaceBar)) {
                 this.runner.setVelocity(0, -200);
             }
         }
 
+        //if the player touches the obstacle 3 times in a row, game over
+        //player gets engulfed by the dark
         if(p1Score == -3){
             this.gameEnd = true;
             this.scene.start('gameOverScene');
         }
     }
+
     addObstacles() {
-        let obstacleObject = new obstacle(this, this.obstacleSpeed);     // create new barrier //obstacle speed --> make global vaiable --> in main
+        let obstacleObject = new obstacle(this, this.obstacleSpeed);    
         this.obstacleGroup.add(obstacleObject);            // add it to existing group
     }
 
@@ -105,6 +111,7 @@ class play extends Phaser.Scene {
         scoreLeft.text = p1Score;
     }
 
+    //level bump from Nathan's paddle parkour code
     levelBump() {
         // increment level (aka score)
         level++;
