@@ -37,8 +37,12 @@ class obstacle extends Phaser.Physics.Arcade.Sprite {
         if(this.x < -this.width) {
             this.destroy();
             console.log('destroyed off screen');
-            p1Score += 1;
-            scoreLeft.text = p1Score;
+
+            if(p1Score < 0){
+                p1Score += 1;
+                scoreLeft.text = p1Score;
+            }
+            
         }
     }
 }

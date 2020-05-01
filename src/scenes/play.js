@@ -17,13 +17,7 @@ class play extends Phaser.Scene {
         this.maxSpeed = -800;
         this.spacebar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
 
-                //from nathan's paddle parkour
-        this.difficultyTimer = this.time.addEvent({
-            delay: 1000,
-            callback: this.levelBump,
-            callbackScope: this,
-            loop: true
-        });
+        level = 0;
 
         let runner = this.physics.add.group({
         // Initial angular speed of 60 degrees per second.
@@ -68,7 +62,13 @@ class play extends Phaser.Scene {
 
         this.physics.add.overlap(runner, this.obstacleGroup, this.check, null, this);
 
- 
+        //from nathan's paddle parkour
+        let difficultyTimer = this.time.addEvent({
+            delay: 1000,
+            callback: this.levelBump,
+            callbackScope: this,
+            loop: true
+        });
 
 
     }
@@ -118,7 +118,7 @@ class play extends Phaser.Scene {
         if(level % 5 == 0) {
             console.log(`level: ${level}, speed: ${this.obstacleSpeed}`); 
             if(this.obstacleSpeed >= this.maxSpeed) {     // increase barrier speed
-                this.obstacleSpeed += 50;
+                this.obstacleSpeed -= 50;
                                          // increase bgm playback rate (ドキドキ)
             }
         }
