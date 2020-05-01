@@ -58,7 +58,7 @@ class play extends Phaser.Scene {
         this.physics.add.collider(this.runner, this.platform);
 
         p1Score = 0;
-        this.scoreLeft = this.add.text(69, 54, this.p1Score, scoreConfig);
+        scoreLeft = this.add.text(69, 54, this.p1Score, scoreConfig);
 
         this.obstacleGroup = this.add.group({
             runChildUpdate: true
@@ -107,7 +107,7 @@ class play extends Phaser.Scene {
         obstacleGroup.destroy();
 
         p1Score -= 1;
-        this.scoreLeft.text = p1Score;
+        scoreLeft.text = p1Score;
     }
 
     levelBump() {
@@ -119,7 +119,7 @@ class play extends Phaser.Scene {
             console.log(`level: ${level}, speed: ${this.obstacleSpeed}`); 
             if(this.obstacleSpeed >= this.maxSpeed) {     // increase barrier speed
                 this.obstacleSpeed += 50;
-                //this.bgm.rate += 0.01;                          // increase bgm playback rate (ドキドキ)
+                                         // increase bgm playback rate (ドキドキ)
             }
         }
     }

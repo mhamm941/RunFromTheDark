@@ -36,4 +36,5 @@ let keyRIGHT, keyleft;
 let level;
 
 let p1Score;
+let scoreLeft;
 

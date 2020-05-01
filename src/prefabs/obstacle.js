@@ -12,7 +12,6 @@ class obstacle extends Phaser.Physics.Arcade.Sprite {
         scene.physics.add.existing(this);       // add physics body
         this.setVelocityX(velocity);            // make it go!
         this.setImmovable();                    
-        //this.tint = Math.random() * 0xFFFFFF;   // randomize tint
         this.newObstacle = true;                 // custom property to control barrier spawning
 
         this.scene = scene;
@@ -39,7 +38,7 @@ class obstacle extends Phaser.Physics.Arcade.Sprite {
             this.destroy();
             console.log('destroyed off screen');
             p1Score += 1;
-            this.scoreLeft.text = p1Score;
+            scoreLeft.text = p1Score;
         }
     }
 }
