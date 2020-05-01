@@ -5,21 +5,24 @@ class gameOver extends Phaser.Scene {
 
     create() {
 
-        //this.add.text(game.config.width/2, game.config.height/2, 'GAME OVER', scoreConfig).setOrigin(0.5);
-        //this.add.text(game.config.width/2, game.config.height/2 + 64, '-> to restart or <- for Menu', scoreConfig).setOrigin(0.5);
+        this.playRestart = this.scene.get("playScene");
+
+        this.spaceBar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+        this.keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
 
         this.add.text(game.config.width/2, game.config.height/2, "GAME OVER").setOrigin(0.5);
-        this.add.text(game.config.width/2, game.config.height/2 + 64, "-> to restart or <- for Menu").setOrigin(0.5);
+        this.add.text(game.config.width/2, game.config.height/2 + 64, "Spacebar to restart or <- for Menu").setOrigin(0.5);
 
     }
 
     update() {
-        if(this.gameEnd && Phaser.Input.Keyboard.JustDown(keyRIGHT)) {
-            this.scene.restart(this.p1Score);
+        if(Phaser.Input.Keyboard.JustDown(this.spaceBar)) {
+            this.playRestart.scene.restart();
+            this.scene.start("playScene");
         }
 
         //press left -> goes to menu screen
-        if(this.gameEnd && Phaser.Input.Keyboard.JustDown(keyLEFT)) {
+        if(Phaser.Input.Keyboard.JustDown(this.keyLEFT)) {
             this.scene.start("menuScene");
         }
     }

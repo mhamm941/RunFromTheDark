@@ -15,7 +15,7 @@ class play extends Phaser.Scene {
         this.gameEnd = false;
         this.obstacleSpeed = -300;
         this.maxSpeed = -800;
-        this.spacebar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+        this.spaceBar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
 
         level = 0;
 
@@ -74,27 +74,22 @@ class play extends Phaser.Scene {
     }
 
     update() {
+
         this.testScroll.tilePositionX += 3;
         this.testBackground.tilePositionX += 3;
 
-        if (Phaser.Input.Keyboard.JustDown(this.spacebar)) {
-            this.runner.setVelocity(0, -200);
-        }
+        this.runner.isGrounded = this.runner.body.touching.down;
 
-        /*if(this.obstacleGroup.tilePositionX < 200){
-            console.log('passed off screen');
-            this.p1Score += 1;
-            this.scoreLeft.text = p1Score;
-        }*/
+        if(this.runner.isGrounded) {
+            if (Phaser.Input.Keyboard.JustDown(this.spaceBar)) {
+                this.runner.setVelocity(0, -200);
+            }
+        }
 
         if(p1Score == -3){
             this.gameEnd = true;
             this.scene.start('gameOverScene');
         }
-
-
-    /////////line 43 in play.js of paddle parkour
-    ///////line 77 function level bump
     }
     addObstacles() {
         let obstacleObject = new obstacle(this, this.obstacleSpeed);     // create new barrier //obstacle speed --> make global vaiable --> in main

@@ -31,8 +31,6 @@ let scoreConfig = {
 
 let game = new Phaser.Game(config);
 
-let keyRIGHT, keyleft;
-
 let level;
 
 let p1Score;
