@@ -55,6 +55,9 @@ class play extends Phaser.Scene {
         p1Score = 0;
         scoreLeft = this.add.text(69, 54, this.p1Score, scoreConfig);
 
+        playScore = 0;
+        displayScore = this.add.text(69, 118, this.playScore, scoreConfig);
+
         this.obstacleGroup = this.add.group({
             runChildUpdate: true
         });
@@ -78,6 +81,7 @@ class play extends Phaser.Scene {
 
         this.testScroll.tilePositionX += 3;
         this.testBackground.tilePositionX += 3;
+        
 
         //for 'is the player on the ground'
         this.runner.isGrounded = this.runner.body.touching.down;

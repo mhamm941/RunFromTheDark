@@ -11,7 +11,8 @@ class gameOver extends Phaser.Scene {
         this.keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
 
         this.add.text(game.config.width/2, game.config.height/2, "GAME OVER").setOrigin(0.5);
-        this.add.text(game.config.width/2, game.config.height/2 + 64, "Spacebar to restart or <- for Menu").setOrigin(0.5);
+        this.add.text(game.config.width/2, game.config.height/2 + 64, "YOUR SCORE: " + playScore).setOrigin(0.5);
+        this.add.text(game.config.width/2, game.config.height/2 + 128, "Spacebar to restart or <- for Menu").setOrigin(0.5);
 
     }
 

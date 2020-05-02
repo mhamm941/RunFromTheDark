@@ -37,7 +37,8 @@ class obstacle extends Phaser.Physics.Arcade.Sprite {
         if(this.x < -this.width) {
             this.destroy();
             console.log('destroyed off screen');
-
+            playScore += 50;
+            displayScore.text = playScore;
             //gives the player the ability to recover --> get away from the darkness
             if(p1Score < 0){
                 p1Score += 1;

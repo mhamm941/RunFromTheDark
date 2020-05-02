@@ -1,0 +1,83 @@
+{
+	"textures": [
+		{
+			"image": "runner-animation.png",
+			"format": "RGBA8888",
+			"size": {
+				"w": 304,
+				"h": 66
+			},
+			"scale": 1,
+			"frames": [
+				{
+					"filename": "running amination-Sheet.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 234,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 5,
+						"y": 0,
+						"w": 229,
+						"h": 64
+					},
+					"frame": {
+						"x": 1,
+						"y": 1,
+						"w": 229,
+						"h": 64
+					}
+				},
+				{
+					"filename": "injured.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 40,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 4,
+						"y": 0,
+						"w": 36,
+						"h": 64
+					},
+					"frame": {
+						"x": 232,
+						"y": 1,
+						"w": 36,
+						"h": 64
+					}
+				},
+				{
+					"filename": "jump.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 40,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 3,
+						"y": 0,
+						"w": 33,
+						"h": 62
+					},
+					"frame": {
+						"x": 270,
+						"y": 1,
+						"w": 33,
+						"h": 62
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"app": "https://www.codeandweb.com/texturepacker",
+		"version": "3.0",
+		"smartupdate": "$TexturePacker:SmartUpdate:e42b978d8a7a0dd16a44311ff13daa90:1cba26b7185064bf7df512d639f2005d:3b64eee1646bb1053c52332c3396f6d1$"
+	}
+}

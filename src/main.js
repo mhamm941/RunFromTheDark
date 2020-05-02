@@ -36,3 +36,6 @@ let level;
 let p1Score;
 let scoreLeft;
 
+let playScore;
+let displayScore;
+
