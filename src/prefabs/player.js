@@ -10,12 +10,14 @@ class player extends Phaser.Physics.Arcade.Sprite {
         this.setGravityY(300);
         this.setDragX(50);
         this.setDragY(50);
+        this.setScale(2.5);
+
     }
 
     update() {
 
         //for 'is the player on the ground'
-        this.runner.isGrounded = this.runner.body.touching.down;
+      /*  this.runner.isGrounded = this.runner.body.touching.down;
 
         //jumping constriction, no double jumps
         if(this.runner.isGrounded) {
@@ -23,7 +25,7 @@ class player extends Phaser.Physics.Arcade.Sprite {
                 this.runner.setVelocity(0, -200);
                 this.sound.play('jump');
             }
-        }
+        }*/
         
     }
 }

@@ -11,6 +11,8 @@ class play extends Phaser.Scene {
         this.load.image('test_scroll', './assets/test_scroll.png');
         this.load.image('test_background', './assets/test_background.png');
         this.load.image('obstacle', './assets/obstacle.png');
+        this.load.image('obstacle2', './assets/obstacle2.png');
+        this.load.image('obstacle3', './assets/obstacle3.png');
 
         this.load.audio('jump', './assets/jump.wav');
         this.load.audio('hurt', './assets/hurt.wav');
@@ -25,7 +27,7 @@ class play extends Phaser.Scene {
 
         level = 0;
 
-        let runnerGroup = this.add.group();
+        this.runnerGroup = this.add.group();
 
         //from nathan's movement studies
         this.platform = this.add.group();
@@ -52,7 +54,7 @@ class play extends Phaser.Scene {
             }),
             repeat: -1, //-1 for infinite repeat
         });
-        this.runner = new player(this, game.config.width/8, game.config.height - 100, 'runner_atlas', 'running1.png');
+        this.runner = new player(this, game.config.width/8, game.config.height - 110, 'runner_atlas', 'running1.png');
         this.runner.play('runningKey');
         this.runnerGroup.add(this.runner, true);
 
@@ -72,7 +74,7 @@ class play extends Phaser.Scene {
         this.addObstacles();
 
         //overlap with between the player and obstacle
-        this.physics.add.overlap(runnerGroup, this.obstacleGroup, this.check, null, this);
+        this.physics.add.overlap(this.runnerGroup, this.obstacleGroup, this.check, null, this);
 
         //from nathan's paddle parkour --> for the level bumping
         let difficultyTimer = this.time.addEvent({
@@ -90,6 +92,17 @@ class play extends Phaser.Scene {
         this.testScroll.tilePositionX += 3;
         this.testBackground.tilePositionX += 3;
 
+        //for 'is the player on the ground'
+        this.runner.isGrounded = this.runner.body.touching.down;
+
+            //jumping constriction, no double jumps
+        if(this.runner.isGrounded) {
+            if (Phaser.Input.Keyboard.JustDown(this.spaceBar)) {
+            this.runner.setVelocity(0, -200);
+            this.sound.play('jump');
+            }
+        }
+
         //if the player touches the obstacle 3 times in a row, game over
         //player gets engulfed by the dark
         if(p1Score == -3){
@@ -99,10 +112,6 @@ class play extends Phaser.Scene {
     }
 
     addObstacles() {
-
-        //let objectAssign = game.rnd.integerInRange(1, 3);
-
-
 
         let obstacleObject = new obstacle(this, this.obstacleSpeed, 'object');    
         this.obstacleGroup.add(obstacleObject);            // add it to existing group
@@ -129,7 +138,6 @@ class play extends Phaser.Scene {
             console.log(`level: ${level}, speed: ${this.obstacleSpeed}`); 
             if(this.obstacleSpeed >= this.maxSpeed) {     // increase barrier speed
                 this.obstacleSpeed -= 50;
-                                         // increase bgm playback rate (ドキドキ)
             }
         }
     }

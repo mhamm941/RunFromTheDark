@@ -1,9 +1,9 @@
 //prefabs from nathan
 
 class obstacle extends Phaser.Physics.Arcade.Sprite {
-    constructor(scene, velocity, texture) {
+    constructor(scene, velocity) {
         // call Phaser Physics Sprite constructor
-        super(scene, game.config.width + 32, game.config.height - 48, texture); 
+        super(scene, game.config.width + 32, game.config.height - 48, 'object'); 
         // set up physics sprite
         scene.add.existing(this);               // add to existing scene, displayList, updateList
         scene.physics.add.existing(this);       // add physics body
