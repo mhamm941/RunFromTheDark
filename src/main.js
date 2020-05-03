@@ -23,7 +23,7 @@ let level;
 
 let spaceBare;
 
-let p1Score;
+let lifeTracker;
 let scoreLeft;
 
 let playScore;

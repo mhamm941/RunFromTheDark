@@ -19,7 +19,7 @@ class menu extends Phaser.Scene {
             fontFamily: 'darkPoestry',
             fontSize: '40px',
         }).setOrigin(0,0);
-        this.add.text(game.config.width/2 +64, 80, "press any key to continue",{
+        this.add.text(game.config.width/2 + 64, 80, "press any key to continue",{
             fontFamily:'darkPoestry',
             fontSize: '20px'
         })

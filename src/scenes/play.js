@@ -64,14 +64,16 @@ class play extends Phaser.Scene {
         this.physics.add.collider(this.runnerGroup, this.platform);
 
         //display score for debugging
-        p1Score = 0;
-        //scoreLeft = this.add.text(69, 54, this.p1Score, scoreConfig);
+        lifeTracker = 0;
 
         playScore = 0;
-        this.add.text(69, 54, this.playScore, {
+
+        displayScore = this.add.text(game.config.width/2 + game.config.width/3, 54, playScore, {
             fontFamily: 'darkPoestry',
-            fontSize: '20px'
+            fontSize: '40px',
+            color: '#000000',
         }).setOrigin(0,0);
+
 
         this.obstacleGroup = this.add.group({
             runChildUpdate: true
@@ -118,7 +120,7 @@ class play extends Phaser.Scene {
         //this.darkness = this.stepDarkness();
         //if the player touches the obstacle 3 times in a row, game over
         //player gets engulfed by the dark
-        if(p1Score == -3){
+        if(lifeTracker == -3){
             this.gameEnd = true;
             this.scene.start('gameOverScene');
         }
@@ -151,10 +153,10 @@ class play extends Phaser.Scene {
 
         this.sound.play('hurt');
 
-        p1Score -= 1;
+        lifeTracker -= 1;
         playScore -=20;
         this.stepDarkness();
-        //scoreLeft.text = p1Score;
+        //scoreLeft.text = lifeTracker;
     }
 
     //level bump from Nathan's paddle parkour code
@@ -173,20 +175,21 @@ class play extends Phaser.Scene {
 
     scoreIncrease() {
         playScore ++;
+        displayScore.text = playScore;
     }
 
     stepDarkness() {
-        if(p1Score == 0){
+        if(lifeTracker == 0){
             this.darkness.destroy();
             this.darkness = this.add.tileSprite(0, 0, 740, 480, 'dark0').setOrigin(0, 0);
             
         }
-        if(p1Score == -1){
+        if(lifeTracker == -1){
             this.darkness.destroy();
             this.darkness = this.add.tileSprite(0, 0, 740, 480, 'dark1').setOrigin(0, 0);
             
         }
-        if(p1Score == -2){
+        if(lifeTracker == -2){
             this.darkness.destroy();
             this.darkness = this.add.tileSprite(0, 0, 740, 480, 'dark2').setOrigin(0, 0);
             

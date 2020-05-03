@@ -22,6 +22,11 @@ class opening extends Phaser.Scene {
         let centerX = game.config.width/2;
         let centerY = game.config.height/2;
 
+        this.add.text(game.config.width/2, 30, "Jump over obstacles to escape the darkness", {
+            fontFamily: 'darkPoestry',
+            fontSize: '25px',
+        }).setOrigin(0.5);
+
         this.add.text(game.config.width/2, game.config.height/2 +64, "Press SPACEBAR to jump", menuConfig).setOrigin(0.5);
         this.add.text(game.config.width/2, game.config.height/2 +128, "Gain points as you run", menuConfig).setOrigin(0.5);
         this.add.text(game.config.width/2, game.config.height/2 +192, "-20 points when you hit an obstacle", menuConfig).setOrigin(0.5);
