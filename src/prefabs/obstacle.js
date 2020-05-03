@@ -1,9 +1,9 @@
 //prefabs from nathan
 
 class obstacle extends Phaser.Physics.Arcade.Sprite {
-    constructor(scene, velocity) {
+    constructor(scene, velocity, texture) {
         // call Phaser Physics Sprite constructor
-        super(scene, game.config.width + 32, game.config.height - 48, 'object'); 
+        super(scene, game.config.width + 32, game.config.height - 48, texture); 
         // set up physics sprite
         scene.add.existing(this);               // add to existing scene, displayList, updateList
         scene.physics.add.existing(this);       // add physics body
@@ -19,8 +19,12 @@ class obstacle extends Phaser.Physics.Arcade.Sprite {
         // override physics sprite update()
         super.update();
 
+        this.randNumber = Math.floor(Math.random() * 300);
+        this.randSpawn = Math.floor(Math.random() * 4) + 1;
+
+        if(this.randSpawn % 2 != 0) {
         // add new barrier when existing barrier hits center X
-        if(this.newObstacle && this.x < 300) { // -------> this.newObstacle, when making new obstacle --> 
+        if(this.newObstacle && this.x < this.randNumber) { // -------> this.newObstacle, when making new obstacle --> 
             this.newObstacle = false;               //every new obstacle is made with this new property
                                         //if the new obstacle is true and it passes the half way mark then it goes into the if statement
                                         //after it passes halfway, no longer an obstacle --> dont mistake it for new obstacle --> dont want to spawn it multiple times
@@ -29,6 +33,7 @@ class obstacle extends Phaser.Physics.Arcade.Sprite {
             // call parent scene method from this context
             this.scene.addObstacles(this.parent, this.velocity); 
         }
+    }
 
         // destroy paddle if it reaches the left edge of the screen
         if(this.x < -this.width) {
@@ -39,7 +44,7 @@ class obstacle extends Phaser.Physics.Arcade.Sprite {
             //gives the player the ability to recover --> get away from the darkness
             if(p1Score < 0){
                 p1Score += 1;
-                scoreLeft.text = p1Score;
+                //scoreLeft.text = p1Score;
             }
 
         }

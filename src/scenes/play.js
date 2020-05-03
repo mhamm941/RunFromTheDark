@@ -6,10 +6,10 @@ class play extends Phaser.Scene {
 
         this.load.atlas('runner_atlas', './assets/runner_sheet.png', './assets/running.json');
 
-        this.load.image('platform', './assets/platform.png');
-        this.load.image('sprite', './assets/sprite.png');
-        this.load.image('test_scroll', './assets/test_scroll.png');
+        this.load.image('groundScroll', './assets/test_scroll.png');
         this.load.image('test_background', './assets/test_background.png');
+        this.load.image('dark0', './assets/dark0.png');
+
         this.load.image('obstacle', './assets/obstacle.png');
         this.load.image('obstacle2', './assets/obstacle2.png');
         this.load.image('obstacle3', './assets/obstacle3.png');
@@ -21,8 +21,8 @@ class play extends Phaser.Scene {
     create() {
 
         this.gameEnd = false;
-        this.obstacleSpeed = -300;
-        this.maxSpeed = -800;
+        this.obstacleSpeed = -250;
+        this.maxSpeed = -475;
         this.spaceBar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
 
         level = 0;
@@ -32,7 +32,7 @@ class play extends Phaser.Scene {
         //from nathan's movement studies
         this.platform = this.add.group();
         for(let i = 0; i < game.config.width; i += 32) {
-            let groundTile = this.physics.add.sprite(i, game.config.height - 32, 'platform').setScale(0.5).setOrigin(0);
+            let groundTile = this.physics.add.sprite(i, game.config.height - 32, 'groundScroll').setOrigin(0);
             groundTile.body.immovable = true;
             groundTile.body.allowGravity = false;
             this.platform.add(groundTile);
@@ -40,7 +40,7 @@ class play extends Phaser.Scene {
         // put another tile sprite above the ground tiles
         this.testBackground = this.add.tileSprite(0, 0, 740, 480, 'test_background').setOrigin(0, 0);
 
-        this.testScroll = this.add.tileSprite(0, 448, 740, 32, 'test_scroll').setOrigin(0, 0);
+        this.groundScroll = this.add.tileSprite(0, 448, 740, 32, 'groundScroll').setOrigin(0, 0);
 
         this.anims.create({
             key: 'runningKey',
@@ -63,10 +63,10 @@ class play extends Phaser.Scene {
 
         //display score for debugging
         p1Score = 0;
-        scoreLeft = this.add.text(69, 54, this.p1Score, scoreConfig);
+        //scoreLeft = this.add.text(69, 54, this.p1Score, scoreConfig);
 
         playScore = 0;
-        displayScore = this.add.text(69, 118, this.playScore, scoreConfig);
+        displayScore = this.add.text(69, 54, this.playScore, scoreConfig);
 
         this.obstacleGroup = this.add.group({
             runChildUpdate: true
@@ -74,7 +74,9 @@ class play extends Phaser.Scene {
         this.addObstacles();
 
         //overlap with between the player and obstacle
-        this.physics.add.overlap(this.runnerGroup, this.obstacleGroup, this.check, null, this);
+        this.physics.add.overlap(this.obstacleGroup, this.runnerGroup, this.check, null, this);
+
+        this.dark0 = this.add.tileSprite(0, 0, 740, 480, 'dark0').setOrigin(0, 0);
 
         //from nathan's paddle parkour --> for the level bumping
         let difficultyTimer = this.time.addEvent({
@@ -89,16 +91,15 @@ class play extends Phaser.Scene {
 
     update() {
 
-        this.testScroll.tilePositionX += 3;
+        this.groundScroll.tilePositionX += 3;
         this.testBackground.tilePositionX += 3;
 
         //for 'is the player on the ground'
         this.runner.isGrounded = this.runner.body.touching.down;
-
-            //jumping constriction, no double jumps
+            //no double jumps
         if(this.runner.isGrounded) {
             if (Phaser.Input.Keyboard.JustDown(this.spaceBar)) {
-            this.runner.setVelocity(0, -200);
+            this.runner.setVelocity(0, -250);
             this.sound.play('jump');
             }
         }
@@ -112,8 +113,21 @@ class play extends Phaser.Scene {
     }
 
     addObstacles() {
+        let objectAssign;
+    
+        let obstacleObject;
 
-        let obstacleObject = new obstacle(this, this.obstacleSpeed, 'object');    
+        objectAssign = Math.floor(Math.random() * 3) + 1;
+
+        if(objectAssign == 1) {
+            obstacleObject = new obstacle(this, this.obstacleSpeed, 'obstacle');
+        }
+        else if(objectAssign == 2) {
+            obstacleObject = new obstacle(this, this.obstacleSpeed, 'obstacle2');
+        }
+        else if(objectAssign == 3) {
+            obstacleObject = new obstacle(this, this.obstacleSpeed, 'obstacle3');
+        }   
         this.obstacleGroup.add(obstacleObject);            // add it to existing group
     }
 
@@ -125,7 +139,7 @@ class play extends Phaser.Scene {
         this.sound.play('hurt');
 
         p1Score -= 1;
-        scoreLeft.text = p1Score;
+        //scoreLeft.text = p1Score;
     }
 
     //level bump from Nathan's paddle parkour code
@@ -134,10 +148,10 @@ class play extends Phaser.Scene {
         level++;
 
         // bump speed every 5 levels
-        if(level % 5 == 0) {
+        if(level % 7 == 0) {
             console.log(`level: ${level}, speed: ${this.obstacleSpeed}`); 
             if(this.obstacleSpeed >= this.maxSpeed) {     // increase barrier speed
-                this.obstacleSpeed -= 50;
+                this.obstacleSpeed -= 25;
             }
         }
     }
