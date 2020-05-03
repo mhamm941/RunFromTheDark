@@ -153,7 +153,7 @@ class play extends Phaser.Scene {
 
         p1Score -= 1;
         playScore -=20;
-        this.stepDarkness()
+        this.stepDarkness();
         //scoreLeft.text = p1Score;
     }
 
@@ -177,14 +177,17 @@ class play extends Phaser.Scene {
 
     stepDarkness() {
         if(p1Score == 0){
+            this.darkness.destroy();
             this.darkness = this.add.tileSprite(0, 0, 740, 480, 'dark0').setOrigin(0, 0);
             
         }
         if(p1Score == -1){
+            this.darkness.destroy();
             this.darkness = this.add.tileSprite(0, 0, 740, 480, 'dark1').setOrigin(0, 0);
             
         }
         if(p1Score == -2){
+            this.darkness.destroy();
             this.darkness = this.add.tileSprite(0, 0, 740, 480, 'dark2').setOrigin(0, 0);
             
         }
