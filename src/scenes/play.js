@@ -49,6 +49,7 @@ class play extends Phaser.Scene {
 
         this.testScroll = this.add.tileSprite(0, 448, 740, 32, 'test_scroll').setOrigin(0, 0);
 
+        //trying to load character animation
         this.runner = runner.create(game.config.width/8, game.config.height - 100, 'runner_atlas', 'running1.png');
         this.runner.play('runningKey');
         this.anims.create({
