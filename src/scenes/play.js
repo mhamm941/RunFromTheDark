@@ -4,7 +4,7 @@ class play extends Phaser.Scene {
     }
     preload() {
 
-        this.load.atlas('runner_atlas', 'runner_sheet.png', 'running.json');
+        this.load.atlas('runner_atlas', './assets/runner_sheet.png', './assets/running.json');
 
         this.load.image('platform', './assets/platform.png');
         this.load.image('sprite', './assets/sprite.png');
@@ -25,18 +25,8 @@ class play extends Phaser.Scene {
 
         level = 0;
 
-        let runner = this.physics.add.group({
-        // Initial angular speed of 60 degrees per second.
-        // Drag reduces it by 5 degrees/s per second, thus to zero after 12 seconds.
-            angularDrag: 0,
-            angularVelocity:0,
-       // bounceX: 1,
-        //bounceY: 1,
-            collideWorldBounds: true,
-            dragX: 50,
-            dragY: 50
-        });
-        
+        let runnerGroup = this.add.group();
+
         //from nathan's movement studies
         this.platform = this.add.group();
         for(let i = 0; i < game.config.width; i += 32) {
@@ -50,9 +40,6 @@ class play extends Phaser.Scene {
 
         this.testScroll = this.add.tileSprite(0, 448, 740, 32, 'test_scroll').setOrigin(0, 0);
 
-        //trying to load character animation
-        this.runner = new player(game.config.width/8, game.config.height - 100, 'runner_atlas', 'running1.png');
-        this.runner.play('runningKey');
         this.anims.create({
             key: 'runningKey',
             frameRate: 5,
@@ -61,15 +48,16 @@ class play extends Phaser.Scene {
                 start: 1,
                 end: 6,
                 zeropad: 1,
+                suffix: '.png',
             }),
             repeat: -1, //-1 for infinite repeat
         });
-
-        //adding gravity
-        this.runner.setGravityY(300);
+        this.runner = new player(this, game.config.width/8, game.config.height - 100, 'runner_atlas', 'running1.png');
+        this.runner.play('runningKey');
+        this.runnerGroup.add(this.runner, true);
 
         //interaction between the runner and the ground, collision
-        this.physics.add.collider(this.runner, this.platform);
+        this.physics.add.collider(this.runnerGroup, this.platform);
 
         //display score for debugging
         p1Score = 0;
@@ -84,7 +72,7 @@ class play extends Phaser.Scene {
         this.addObstacles();
 
         //overlap with between the player and obstacle
-        this.physics.add.overlap(runner, this.obstacleGroup, this.check, null, this);
+        this.physics.add.overlap(runnerGroup, this.obstacleGroup, this.check, null, this);
 
         //from nathan's paddle parkour --> for the level bumping
         let difficultyTimer = this.time.addEvent({
@@ -111,7 +99,12 @@ class play extends Phaser.Scene {
     }
 
     addObstacles() {
-        let obstacleObject = new obstacle(this, this.obstacleSpeed);    
+
+        //let objectAssign = game.rnd.integerInRange(1, 3);
+
+
+
+        let obstacleObject = new obstacle(this, this.obstacleSpeed, 'object');    
         this.obstacleGroup.add(obstacleObject);            // add it to existing group
     }
 

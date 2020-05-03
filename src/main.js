@@ -33,6 +33,8 @@ let game = new Phaser.Game(config);
 
 let level;
 
+let spaceBare;
+
 let p1Score;
 let scoreLeft;
 
