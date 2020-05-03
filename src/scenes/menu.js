@@ -23,6 +23,9 @@ class menu extends Phaser.Scene {
 
         this.add.text(game.config.width/2, 20, "Run From the Dark", menuConfig).setOrigin(0,0);
 
+        //fix later
+        this.add.text(game.config.width/2, game.config.height - 100, "press any key to continue", menuConfig).setScale(0.5).setOrigin(0,0);
+
         this.input.keyboard.on('keydown', () => {
             this.scene.start("openingScene");
             this.sound.play('switch');
