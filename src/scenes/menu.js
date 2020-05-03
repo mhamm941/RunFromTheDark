@@ -5,6 +5,8 @@ class menu extends Phaser.Scene {
 
     preload() {
         this.load.image('opening1', './assets/openingScene1.png');
+
+        this.load.audio('select', './assets/select.wav');
     }
 
     create() {
@@ -18,6 +20,7 @@ class menu extends Phaser.Scene {
 
         this.input.keyboard.on('keydown', () => {
             this.scene.start("openingScene");
+            this.sound.play('select');
         }, this);
     }
 

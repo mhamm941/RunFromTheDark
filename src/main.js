@@ -13,7 +13,7 @@ let config = {
             }
         }
     },
-    scene: [menu, opening, play, gameOver]
+    scene: [music, menu, opening, play, gameOver]
 };
 
 let scoreConfig = {

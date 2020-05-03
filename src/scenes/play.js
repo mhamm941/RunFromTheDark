@@ -3,11 +3,17 @@ class play extends Phaser.Scene {
         super("playScene");
     }
     preload() {
+
+        //this.load.atlas('platformer_atlas', 'running.png', 'running.json');
+
         this.load.image('platform', './assets/platform.png');
         this.load.image('sprite', './assets/sprite.png');
         this.load.image('test_scroll', './assets/test_scroll.png');
         this.load.image('test_background', './assets/test_background.png');
         this.load.image('obstacle', './assets/obstacle.png');
+
+        this.load.audio('jump', './assets/jump.wav');
+        this.load.audio('hurt', './assets/hurt.wav');
 
     }
     create() {
@@ -90,6 +96,7 @@ class play extends Phaser.Scene {
         if(this.runner.isGrounded) {
             if (Phaser.Input.Keyboard.JustDown(this.spaceBar)) {
                 this.runner.setVelocity(0, -200);
+                this.sound.play('jump');
             }
         }
 
@@ -110,6 +117,8 @@ class play extends Phaser.Scene {
         console.log('hit');
 
         obstacleGroup.destroy();
+
+        this.sound.play('hurt');
 
         p1Score -= 1;
         scoreLeft.text = p1Score;
