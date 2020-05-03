@@ -6,7 +6,8 @@ class menu extends Phaser.Scene {
     preload() {
         this.load.image('opening1', './assets/openingScene1.png');
 
-        this.load.audio('select', './assets/select.wav');
+        //this.load.audio('select', './assets/select.wav');
+        this.load.audio('switch', './assets/switch.wav')
     }
 
     create() {
@@ -16,11 +17,11 @@ class menu extends Phaser.Scene {
         let centerX = game.config.width/2;
         let centerY = game.config.height/2;
 
-        this.add.text(game.config.width/2, game.config.height/2, "Run From the Dark").setOrigin(0.5);
+        this.add.text(game.config.width*5/6, game.config.height*7/8, "Run From the Dark").setOrigin(0.5);
 
         this.input.keyboard.on('keydown', () => {
             this.scene.start("openingScene");
-            this.sound.play('select');
+            this.sound.play('switch');
         }, this);
     }
 

@@ -8,8 +8,9 @@ class music extends Phaser.Scene {
     create() {
         let bgMusic = this.sound.add('bgMusic');
         bgMusic.play({
-            loop: true
+            loop: true,
+            volume: .75,
         });
-        this.scene.start("openingScene");
+        this.scene.start("menuScene");
     }
 }
