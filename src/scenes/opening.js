@@ -23,8 +23,8 @@ class opening extends Phaser.Scene {
         let centerY = game.config.height/2;
 
         this.add.text(game.config.width/2, game.config.height/2 +64, "Press SPACEBAR to jump", menuConfig).setOrigin(0.5);
-        this.add.text(game.config.width/2, game.config.height/2 +128, "Jump over the obstacles to", menuConfig).setOrigin(0.5);
-        this.add.text(game.config.width/2, game.config.height/2 +192, "escape the darkness", menuConfig).setOrigin(0.5);
+        this.add.text(game.config.width/2, game.config.height/2 +128, "Gain points as you run", menuConfig).setOrigin(0.5);
+        this.add.text(game.config.width/2, game.config.height/2 +192, "-20 points when you hit an obstacle", menuConfig).setOrigin(0.5);
 
         this.input.keyboard.on('keydown', () => {
             this.scene.start("playScene");

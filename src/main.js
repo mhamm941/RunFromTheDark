@@ -16,18 +16,6 @@ let config = {
     scene: [music, menu, opening, play, gameOver]
 };
 
-let scoreConfig = {
-    fontFamily: 'Courier',
-    fontSize: '28px',
-    backgroundColor: '#ffda82',
-    color: '#843605',
-    align: 'right',
-    padding: {
-        top: 5,
-        bottom: 5,
-    },
-    fixedWidth: 100
-}
 
 let game = new Phaser.Game(config);
 

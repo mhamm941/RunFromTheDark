@@ -9,6 +9,8 @@ class play extends Phaser.Scene {
         this.load.image('groundScroll', './assets/test_scroll.png');
         this.load.image('test_background', './assets/test_background.png');
         this.load.image('dark0', './assets/dark0.png');
+        this.load.image('dark1', './assets/dark-1.png');
+        this.load.image('dark2', './assets/dark-2.png');
 
         this.load.image('obstacle', './assets/obstacle.png');
         this.load.image('obstacle2', './assets/obstacle2.png');
@@ -22,7 +24,7 @@ class play extends Phaser.Scene {
 
         this.gameEnd = false;
         this.obstacleSpeed = -250;
-        this.maxSpeed = -475;
+        this.maxSpeed = -600;
         this.spaceBar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
 
         level = 0;
@@ -66,7 +68,10 @@ class play extends Phaser.Scene {
         //scoreLeft = this.add.text(69, 54, this.p1Score, scoreConfig);
 
         playScore = 0;
-        displayScore = this.add.text(69, 54, this.playScore, scoreConfig);
+        this.add.text(69, 54, this.playScore, {
+            fontFamily: 'darkPoestry',
+            fontSize: '20px'
+        }).setOrigin(0,0);
 
         this.obstacleGroup = this.add.group({
             runChildUpdate: true
@@ -76,12 +81,19 @@ class play extends Phaser.Scene {
         //overlap with between the player and obstacle
         this.physics.add.overlap(this.obstacleGroup, this.runnerGroup, this.check, null, this);
 
-        this.dark0 = this.add.tileSprite(0, 0, 740, 480, 'dark0').setOrigin(0, 0);
+        //darkLevel = 0;
+        this.darkness = this.add.tileSprite(0, 0, 740, 480, 'dark0').setOrigin(0, 0);
 
         //from nathan's paddle parkour --> for the level bumping
         let difficultyTimer = this.time.addEvent({
             delay: 1000,
             callback: this.levelBump,
+            callbackScope: this,
+            loop: true
+        });
+        let scoreTimer = this.time.addEvent({
+            delay: 100,
+            callback: this.scoreIncrease,
             callbackScope: this,
             loop: true
         });
@@ -103,13 +115,14 @@ class play extends Phaser.Scene {
             this.sound.play('jump');
             }
         }
-
+        //this.darkness = this.stepDarkness();
         //if the player touches the obstacle 3 times in a row, game over
         //player gets engulfed by the dark
         if(p1Score == -3){
             this.gameEnd = true;
             this.scene.start('gameOverScene');
         }
+        
     }
 
     addObstacles() {
@@ -139,6 +152,8 @@ class play extends Phaser.Scene {
         this.sound.play('hurt');
 
         p1Score -= 1;
+        playScore -=20;
+        this.stepDarkness()
         //scoreLeft.text = p1Score;
     }
 
@@ -156,4 +171,22 @@ class play extends Phaser.Scene {
         }
     }
 
+    scoreIncrease() {
+        playScore ++;
+    }
+
+    stepDarkness() {
+        if(p1Score == 0){
+            this.darkness = this.add.tileSprite(0, 0, 740, 480, 'dark0').setOrigin(0, 0);
+            
+        }
+        if(p1Score == -1){
+            this.darkness = this.add.tileSprite(0, 0, 740, 480, 'dark1').setOrigin(0, 0);
+            
+        }
+        if(p1Score == -2){
+            this.darkness = this.add.tileSprite(0, 0, 740, 480, 'dark2').setOrigin(0, 0);
+            
+        }
+    }
 }
