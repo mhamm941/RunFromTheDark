@@ -36,6 +36,7 @@ class play extends Phaser.Scene {
             dragX: 50,
             dragY: 50
         });
+        
         //from nathan's movement studies
         this.platform = this.add.group();
         for(let i = 0; i < game.config.width; i += 32) {
@@ -50,7 +51,7 @@ class play extends Phaser.Scene {
         this.testScroll = this.add.tileSprite(0, 448, 740, 32, 'test_scroll').setOrigin(0, 0);
 
         //trying to load character animation
-        this.runner = runner.create(game.config.width/8, game.config.height - 100, 'runner_atlas', 'running1.png');
+        this.runner = new player(game.config.width/8, game.config.height - 100, 'runner_atlas', 'running1.png');
         this.runner.play('runningKey');
         this.anims.create({
             key: 'runningKey',
@@ -100,18 +101,6 @@ class play extends Phaser.Scene {
 
         this.testScroll.tilePositionX += 3;
         this.testBackground.tilePositionX += 3;
-        
-
-        //for 'is the player on the ground'
-        this.runner.isGrounded = this.runner.body.touching.down;
-
-        //jumping constriction, no double jumps
-        if(this.runner.isGrounded) {
-            if (Phaser.Input.Keyboard.JustDown(this.spaceBar)) {
-                this.runner.setVelocity(0, -200);
-                this.sound.play('jump');
-            }
-        }
 
         //if the player touches the obstacle 3 times in a row, game over
         //player gets engulfed by the dark
