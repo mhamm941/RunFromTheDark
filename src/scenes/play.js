@@ -4,7 +4,7 @@ class play extends Phaser.Scene {
     }
     preload() {
 
-        //this.load.atlas('platformer_atlas', 'running.png', 'running.json');
+        this.load.atlas('runner_atlas', 'runner_sheet.png', 'running.json');
 
         this.load.image('platform', './assets/platform.png');
         this.load.image('sprite', './assets/sprite.png');
@@ -49,7 +49,19 @@ class play extends Phaser.Scene {
 
         this.testScroll = this.add.tileSprite(0, 448, 740, 32, 'test_scroll').setOrigin(0, 0);
 
-        this.runner = runner.create(game.config.width/8, game.config.height - 100, 'sprite');
+        this.runner = new runner(game.config.width/8, game.config.height - 100, 'runner_atlas', 'running1.png');
+        this.runner.play('runningKey');
+        this.anims.create({
+            key: 'runningKey',
+            frameRate: 5,
+            frames: this.anims.generateFrameNames('runner_atlas', {
+                prefix: 'running',
+                start: 1,
+                end: 6,
+                zeropad: 1,
+            }),
+            repeat: -1, //-1 for infinite repeat
+        });
 
         //adding gravity
         this.runner.setGravityY(300);
@@ -126,7 +138,7 @@ class play extends Phaser.Scene {
 
     //level bump from Nathan's paddle parkour code
     levelBump() {
-        // increment level (aka score)
+
         level++;
 
         // bump speed every 5 levels
