@@ -1,6 +1,7 @@
 /*
     Run From The Dark - Endless Runner
     Authors - Amber Vo, Matthew Hamm, Petr Luzunov
+    Completed - 5/3/20
     
     CREATIVE TILT
     Technical - We implimented a "life" feature that tracks how close you are to the end of the game. 
