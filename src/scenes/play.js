@@ -12,10 +12,11 @@ class play extends Phaser.Scene {
         this.load.image('dark1', './assets/dark-1.png');
         this.load.image('dark2', './assets/dark-2.png');
 
-        this.load.image('legos', './assets/Legos.png');
         this.load.image('chair', './assets/Chair.png');
         this.load.image('laundry', './assets/Laundry.png');
         this.load.image('bin', './assets/Trashbin.png')
+
+        this.load.image('jumping', './assets/jump.png');
 
         this.load.audio('jump', './assets/jump.wav');
         this.load.audio('hurt', './assets/hurt.wav');
@@ -72,7 +73,7 @@ class play extends Phaser.Scene {
         displayScore = this.add.text(game.config.width/2 + game.config.width/3, 54, playScore, {
             fontFamily: 'darkPoestry',
             fontSize: '40px',
-            color: '#000000',
+            color: '#FFFFBF',
         }).setOrigin(0,0);
 
 
@@ -111,11 +112,32 @@ class play extends Phaser.Scene {
         this.runner.isGrounded = this.runner.body.touching.down;
             //no double jumps
         if(this.runner.isGrounded) {
+            if (this.runner.anims.getCurrentKey() != 'runningKey') {
+                this.runner.anims.play('runningKey');
+               }
+            //no double jumps
             if (Phaser.Input.Keyboard.JustDown(this.spaceBar)) {
             this.runner.setVelocity(0, -250);
             this.sound.play('jump');
             }
         }
+
+        if(!this.runner.isGrounded) {
+            this.anims.create({
+                key: 'jumpingKey',
+                frameRate: 1,
+                frames: this.anims.generateFrameNames('runner_atlas', {
+                    prefix: 'jump',
+                    start: 1,
+                    end: 1,
+                    zeropad: 1,
+                    suffix: '.png',
+                }),
+                repeat: 1,
+            });
+            this.runner.anims.play('jumpingKey');
+        }
+
         //this.darkness = this.stepDarkness();
         //if the player touches the obstacle 3 times in a row, game over
         //player gets engulfed by the dark
@@ -131,18 +153,15 @@ class play extends Phaser.Scene {
     
         let obstacleObject;
 
-        objectAssign = Math.floor(Math.random() * 4) + 1;
+        objectAssign = Math.floor(Math.random() * 3) + 1;
 
         if(objectAssign == 1) {
-            obstacleObject = new obstacle(this, this.obstacleSpeed, 'legos');
-        }
-        else if(objectAssign == 2) {
             obstacleObject = new obstacle(this, this.obstacleSpeed, 'chair');
         }
-        else if(objectAssign == 3) {
+        else if(objectAssign == 2) {
             obstacleObject = new obstacle(this, this.obstacleSpeed, 'laundry');
         }  
-        else if(objectAssign == 4) {
+        else if(objectAssign == 3) {
             obstacleObject = new obstacle(this, this.obstacleSpeed, 'bin');
         } 
         this.obstacleGroup.add(obstacleObject);            // add it to existing group

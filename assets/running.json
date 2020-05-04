@@ -52,7 +52,7 @@
 					}
 				},
 				{
-					"filename": "injured.png",
+					"filename": "injured1.png",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
@@ -136,7 +136,7 @@
 					}
 				},
 				{
-					"filename": "jump.png",
+					"filename": "jump1.png",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {

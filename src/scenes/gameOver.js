@@ -3,12 +3,18 @@ class gameOver extends Phaser.Scene {
         super("gameOverScene");
     }
 
+    preload() {
+        this.load.image('overScene', './assets/gameOver.png');
+    }
+
     create() {
         let menuConfig = {
             fontFamily: 'darkPoestry',
             fontSize: '40px',
             fixedWidth: 0
         }
+
+        this.ending = this.add.tileSprite(0, 0, 740, 480, 'overScene').setOrigin(0,0);
 
         this.playRestart = this.scene.get("playScene");
 
