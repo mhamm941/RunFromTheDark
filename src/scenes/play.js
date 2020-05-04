@@ -16,8 +16,6 @@ class play extends Phaser.Scene {
         this.load.image('laundry', './assets/Laundry.png');
         this.load.image('bin', './assets/Trashbin.png')
 
-        this.load.image('jumping', './assets/jump.png');
-
         this.load.audio('jump', './assets/jump.wav');
         this.load.audio('hurt', './assets/hurt.wav');
 
