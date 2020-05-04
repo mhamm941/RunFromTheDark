@@ -7,14 +7,15 @@ class play extends Phaser.Scene {
         this.load.atlas('runner_atlas', './assets/runner_sheet.png', './assets/running.json');
 
         this.load.image('groundScroll', './assets/test_scroll.png');
-        this.load.image('test_background', './assets/test_background.png');
+        this.load.image('background', './assets/background.png');
         this.load.image('dark0', './assets/dark0.png');
         this.load.image('dark1', './assets/dark-1.png');
         this.load.image('dark2', './assets/dark-2.png');
 
-        this.load.image('obstacle', './assets/obstacle.png');
-        this.load.image('obstacle2', './assets/obstacle2.png');
-        this.load.image('obstacle3', './assets/obstacle3.png');
+        this.load.image('legos', './assets/Legos.png');
+        this.load.image('chair', './assets/Chair.png');
+        this.load.image('laundry', './assets/Laundry.png');
+        this.load.image('bin', './assets/Trashbin.png')
 
         this.load.audio('jump', './assets/jump.wav');
         this.load.audio('hurt', './assets/hurt.wav');
@@ -34,15 +35,15 @@ class play extends Phaser.Scene {
         //from nathan's movement studies
         this.platform = this.add.group();
         for(let i = 0; i < game.config.width; i += 32) {
-            let groundTile = this.physics.add.sprite(i, game.config.height - 32, 'groundScroll').setOrigin(0);
+            let groundTile = this.physics.add.sprite(i, game.config.height - 100, 'groundScroll').setOrigin(0);
             groundTile.body.immovable = true;
             groundTile.body.allowGravity = false;
             this.platform.add(groundTile);
         }
         // put another tile sprite above the ground tiles
-        this.testBackground = this.add.tileSprite(0, 0, 740, 480, 'test_background').setOrigin(0, 0);
+        this.background = this.add.tileSprite(0, 0, 740, 480, 'background').setOrigin(0, 0);
 
-        this.groundScroll = this.add.tileSprite(0, 448, 740, 32, 'groundScroll').setOrigin(0, 0);
+        this.groundScroll = this.add.tileSprite(0, 380, 740, 100, 'groundScroll').setOrigin(0, 0);
 
         this.anims.create({
             key: 'runningKey',
@@ -56,7 +57,7 @@ class play extends Phaser.Scene {
             }),
             repeat: -1, //-1 for infinite repeat
         });
-        this.runner = new player(this, game.config.width/8, game.config.height - 110, 'runner_atlas', 'running1.png');
+        this.runner = new player(this, game.config.width/8, game.config.height - 210, 'runner_atlas', 'running1.png');
         this.runner.play('runningKey');
         this.runnerGroup.add(this.runner, true);
 
@@ -99,14 +100,12 @@ class play extends Phaser.Scene {
             callbackScope: this,
             loop: true
         });
-
-
     }
 
     update() {
 
-        this.groundScroll.tilePositionX += 3;
-        this.testBackground.tilePositionX += 3;
+        this.groundScroll.tilePositionX += 5;
+        this.background.tilePositionX += 5;
 
         //for 'is the player on the ground'
         this.runner.isGrounded = this.runner.body.touching.down;
@@ -132,17 +131,20 @@ class play extends Phaser.Scene {
     
         let obstacleObject;
 
-        objectAssign = Math.floor(Math.random() * 3) + 1;
+        objectAssign = Math.floor(Math.random() * 4) + 1;
 
         if(objectAssign == 1) {
-            obstacleObject = new obstacle(this, this.obstacleSpeed, 'obstacle');
+            obstacleObject = new obstacle(this, this.obstacleSpeed, 'legos');
         }
         else if(objectAssign == 2) {
-            obstacleObject = new obstacle(this, this.obstacleSpeed, 'obstacle2');
+            obstacleObject = new obstacle(this, this.obstacleSpeed, 'chair');
         }
         else if(objectAssign == 3) {
-            obstacleObject = new obstacle(this, this.obstacleSpeed, 'obstacle3');
-        }   
+            obstacleObject = new obstacle(this, this.obstacleSpeed, 'laundry');
+        }  
+        else if(objectAssign == 4) {
+            obstacleObject = new obstacle(this, this.obstacleSpeed, 'bin');
+        } 
         this.obstacleGroup.add(obstacleObject);            // add it to existing group
     }
 
